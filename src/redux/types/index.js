@@ -1,0 +1,6 @@
+export const Types = {
+  USET_SET_GOAL: 'USET_SET_GOAL',
+  USER_SET_HEIGHT: 'USER_SET_HEIGHT',
+  USER_SET_AGE: 'USER_SET_AGE',
+};
+
