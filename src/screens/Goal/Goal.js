@@ -8,6 +8,10 @@ const background = require('../../assets/img/backgroundGrain.png');
 const logo = require('../../assets/img/icon8Logo.png');
 
 class Goal extends Component {
+  static navigationOptions = {
+    header: null,
+  };
+
   render() {
     return (
       <MainContainer source={background}>

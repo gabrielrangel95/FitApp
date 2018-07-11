@@ -9,7 +9,7 @@ const MainContainer = styled.ImageBackground`
 
 const Logo = styled.Image`
   width: 22px;
-  height: 42px;
+  height: 44px;
 `;
 
 
