@@ -2,7 +2,22 @@
   "presets": ["babel-preset-expo"],
   "env": {
     "development": {
-      "plugins": ["transform-react-jsx-source"]
+      "plugins": [
+        "transform-react-jsx-source",
+        ["module-resolver", {
+          "root": ["./src"],
+          "alias":{
+            "@screens": "./src/screens",
+            "@components": "./src/components",
+            "@config": "./src/config",
+            "@redux": "./src/redux",
+            "@router": "./src/router",
+            "@styles": "./src/styles"
+          },
+          "cwd": "babelrc",
+          "extensions": [".js"]
+        }]
+      ]
     }
   }
 }
