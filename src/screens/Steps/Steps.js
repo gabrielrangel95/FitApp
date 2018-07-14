@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Feather } from '@expo/vector-icons';
+import { Stepper } from '@components';
 import {
   ArrowLeftContainer,
   Container,
@@ -22,7 +23,7 @@ class Steps extends Component {
   render() {
     return (
       <Container>
-
+        <Stepper steps={3} currentStep={1} />
       </Container>
     );
   }
