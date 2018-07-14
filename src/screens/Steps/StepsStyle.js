@@ -13,6 +13,7 @@ const Container = styled.View`
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+  background-color: white;
 `;
 
 export {
