@@ -19,6 +19,7 @@ class App extends Component {
     await Font.loadAsync({
       firaSansBold: require('./src/assets/fonts/FiraSans-Bold.ttf'),
       firaSansMedium: require('./src/assets/fonts/FiraSans-Medium.ttf'),
+      fireSansRegular: require('./src/assets/fonts/FiraSans-Regular.ttf'),
     });
     this.setState({ loading: false });
   }
