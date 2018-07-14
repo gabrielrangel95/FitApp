@@ -5,6 +5,7 @@ const MainContainer = styled.ImageBackground`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin-bottom: 6;
 `;
 
 const Logo = styled.Image`
