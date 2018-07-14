@@ -8,12 +8,11 @@ import {
   Logo,
   ContentContainer,
   SubTitle,
-  Title,
   CellContainer,
-  CellTitle,
   CellSubTitle,
   IconContainer,
 } from './GoalStyle';
+import { Title } from '@components';
 
 const background = require('../../assets/img/backgroundGrain.png');
 const logo = require('../../assets/img/icon8Logo.png');
@@ -40,10 +39,10 @@ class Goal extends Component {
         <Logo source={logo} />
         <ContentContainer>
           <SubTitle>WELCOME TO 8FIT</SubTitle>
-          <Title>What's your goal?</Title>
+          <Title medium>What's your goal?</Title>
 
           <CellContainer onPress={this.onGoalPress}>
-            <CellTitle>Lose weight</CellTitle>
+            <Title>Lose weight</Title>
             <CellSubTitle>Burn fat & get lean</CellSubTitle>
             <IconContainer>
               <Feather name="chevron-right" size={iconSize} color="grey" />
@@ -51,7 +50,7 @@ class Goal extends Component {
           </CellContainer>
 
           <CellContainer>
-            <CellTitle>Get fitter</CellTitle>
+            <Title>Get fitter</Title>
             <CellSubTitle>Tone up & feel healthy</CellSubTitle>
             <IconContainer>
               <Feather name="chevron-right" size={iconSize} color="grey" />
@@ -59,7 +58,7 @@ class Goal extends Component {
           </CellContainer>
           
           <CellContainer>
-            <CellTitle>Gain muscle</CellTitle>
+            <Title>Gain muscle</Title>
             <CellSubTitle>Build mass & strength</CellSubTitle>
             <IconContainer>
               <Feather name="chevron-right" size={iconSize} color="grey" />

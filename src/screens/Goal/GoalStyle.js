@@ -55,13 +55,6 @@ const SubTitle = styled.Text`
   margin-bottom: 20;
 `;
 
-const Title = styled.Text`
-  font-family: firaSansBold;
-  font-size: 24;
-  color: black;
-  margin-bottom: 30;
-`;
-
 const CellContainer = styled.TouchableOpacity`
   display: flex;
   width: 100%;
@@ -82,12 +75,6 @@ const CellContainer = styled.TouchableOpacity`
   shadow-offset: 2px 10px;
 `;
 
-const CellTitle = styled.Text`
-  font-family: firaSansBold;
-  font-size: 20;
-  color: black;
-  margin-bottom: 8;
-`;
 
 const CellSubTitle = styled.Text`
   font-family: fireSansRegular;
@@ -115,9 +102,7 @@ export {
   Logo,
   ContentContainer,
   SubTitle,
-  Title,
   CellContainer,
-  CellTitle,
   CellSubTitle,
   IconContainer,
 };
