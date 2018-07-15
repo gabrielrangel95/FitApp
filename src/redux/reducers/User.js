@@ -8,7 +8,7 @@ const initialState = {
 
 export default function user(state = initialState, action) {
   switch (action.type) {
-    case Types.USET_SET_GOAL:
+    case Types.USER_SET_GOAL:
       return {
         ...state,
         goal: action.payload.goal,
