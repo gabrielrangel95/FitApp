@@ -79,7 +79,7 @@ class Goal extends Component {
     this.props.navigation.navigate('EntrySteps');
   }
 
-  keyExtractor = (item, index) => index;
+  keyExtractor = item => item.value;
 
   renderItem = ({ item }) => (
     <Card
