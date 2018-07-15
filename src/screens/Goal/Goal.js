@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
-import { Animated, Easing, Dimensions } from 'react-native';
-import { Feather } from '@expo/vector-icons';
+import { Animated, Easing, FlatList } from 'react-native';
+import { Title, Card } from '@components';
+
+// redux
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { GoalActions } from '@redux/actions/Goal';
+
 import {
   MainContainer,
   ContentContainer,
   SubTitle,
-  CellContainer,
-  CellSubTitle,
-  IconContainer,
 } from './GoalStyle';
-import { Title } from '@components';
 
 const background = require('../../assets/img/backgroundGrain.png');
 const logo = require('../../assets/img/icon8Logo.png');
@@ -57,11 +59,21 @@ class Goal extends Component {
   }
 
   onGoalPress = () => {
-    this.props.navigation.navigate('Steps');
+    this.props.navigation.navigate('EntrySteps');
   }
+
+  keyExtractor = (item, index) => index;
+
+  renderItem = ({ item }) => (
+    <Card
+      item={item}
+      onGoalPress={this.onGoalPress}
+    />
+  );
 
   render() {
     const iconSize = 20;
+    const { data } = this.props.goal;
     const beansImgAnimStyle = {
       height: '80%',
       width: '50%',
@@ -115,29 +127,11 @@ class Goal extends Component {
             <SubTitle>WELCOME TO 8FIT</SubTitle>
             <Title medium>What's your goal?</Title>
 
-            <CellContainer onPress={this.onGoalPress}>
-              <Title>Lose weight</Title>
-              <CellSubTitle>Burn fat & get lean</CellSubTitle>
-              <IconContainer>
-                <Feather name="chevron-right" size={iconSize} color="grey" />
-              </IconContainer>
-            </CellContainer>
-
-            <CellContainer>
-              <Title>Get fitter</Title>
-              <CellSubTitle>Tone up & feel healthy</CellSubTitle>
-              <IconContainer>
-                <Feather name="chevron-right" size={iconSize} color="grey" />
-              </IconContainer>
-            </CellContainer>
-
-            <CellContainer>
-              <Title>Gain muscle</Title>
-              <CellSubTitle>Build mass & strength</CellSubTitle>
-              <IconContainer>
-                <Feather name="chevron-right" size={iconSize} color="grey" />
-              </IconContainer>
-            </CellContainer>
+            <FlatList
+              data={data}
+              keyExtractor={this.keyExtractor}
+              renderItem={this.renderItem}
+            />
           </ContentContainer>
         </Animated.View>
       </MainContainer>
@@ -145,4 +139,12 @@ class Goal extends Component {
   }
 }
 
-export { Goal };
+const mapStateToProps = state => ({
+  goal: state.goal,
+});
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(GoalActions, dispatch);
+
+const GoalConnect = connect(mapStateToProps, mapDispatchToProps)(Goal);
+export { GoalConnect as Goal };
