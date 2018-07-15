@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 import { Feather } from '@expo/vector-icons';
 import { Stepper, Title, Button } from '@components';
+// redux
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { StepsActions } from '@redux/actions/Steps';
+import { UserActions } from '@redux/actions/User';
+
 import {
   ArrowLeftContainer,
   Container,
@@ -21,15 +27,32 @@ class EntrySteps extends Component {
   })
 
   state = {
-    age: '',
+    age: null,
+    feet: null,
+    inches: null,
+    cm: null,
+  }
+
+  continuePressed = () => {
+    const { data, currentStep } = this.props.steps;
+    const dataSize = data.length;
+    // handle save entry question answer
+
+    if (currentStep === (dataSize - 1)) {
+      // navigate to result
+    } else {
+      this.props.goToNext();
+    }
   }
 
   render() {
+    const { data, currentStep } = this.props.steps;
+    console.log(data.length, currentStep);
     return (
       <Container>
-        <Stepper steps={2} currentStep={1} />
+        <Stepper steps={data.length} currentStep={(currentStep + 1)} />
         <DataContainer>
-          <Title medium>How old are you?</Title>
+          <Title medium>{data[currentStep].title}</Title>
           <DataInput
             placeholder="Ex: 33"
             keyboardType="number-pad"
@@ -37,11 +60,23 @@ class EntrySteps extends Component {
             maxLength={3}
             onChangeText={age => this.setState({ age })}
           />
-          <Button text="Continue" blocked={this.state.age.lenght < 1} />
+          <Button text="Continue" onPress={this.continuePressed} />
         </DataContainer>
       </Container>
     );
   }
 }
 
-export { EntrySteps };
+const mapStateToProps = state => ({
+  steps: state.steps,
+});
+
+const mapDispatchToProps = (dispatch) => {
+  const boundStepsCreators = bindActionCreators(StepsActions, dispatch);
+  const boundUserCreators = bindActionCreators(UserActions, dispatch);
+  const allActionProps = { ...boundStepsCreators, ...boundUserCreators, dispatch };
+  return allActionProps;
+};
+
+const EntryStepsConnect = connect(mapStateToProps, mapDispatchToProps)(EntrySteps);
+export { EntryStepsConnect as EntrySteps };
