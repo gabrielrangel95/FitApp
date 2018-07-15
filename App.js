@@ -1,44 +1,19 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Provider } from 'react-redux';
-import { Font } from 'expo';
-
 import './src/config/ReactotronConfig';
 import store from './src/redux/store';
-import { Router } from './src/router';
 import { Landing } from './src/screens';
 
 console.disableYellowBox = true;
 
-class App extends Component {
-  state = {
-    loading: true,
-  }
+const App = () =>
+  (
+    <Provider store={store}>
+      {
+        <Landing />
+      }
+    </Provider>
+  );
 
-  componentDidMount() {
-    console.disableYellowBox = true;
-    this.loadFonts();
-  }
-
-  loadFonts = async () => {
-    await Font.loadAsync({
-      firaSansBold: require('./src/assets/fonts/FiraSans-Bold.ttf'),
-      firaSansMedium: require('./src/assets/fonts/FiraSans-Medium.ttf'),
-      fireSansRegular: require('./src/assets/fonts/FiraSans-Regular.ttf'),
-    });
-    this.setState({ loading: false });
-  }
-
-  render() {
-    const { loading } = this.state;
-    return (
-      <Provider store={store}>
-        {
-          loading ? <Landing />
-          : <Router />
-        }
-      </Provider>
-    );
-  }
-}
 
 export default App;

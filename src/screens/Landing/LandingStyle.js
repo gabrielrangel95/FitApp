@@ -5,12 +5,12 @@ const MainContainer = styled.ImageBackground`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-bottom: 6;
 `;
 
 const Logo = styled.Image`
   width: 44px;
   height: 88px;
+  margin-bottom: 12;
 `;
 
 const Loader = styled.ActivityIndicator``;
