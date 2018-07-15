@@ -1,10 +1,10 @@
 import { createStackNavigator } from 'react-navigation';
-import { Goal, Steps } from '@screens';
+import { Goal, EntrySteps } from '@screens';
 
 const Router = createStackNavigator(
   {
     Goal: { screen: Goal },
-    Steps: { screen: Steps },
+    EntrySteps: { screen: EntrySteps },
   },
   {
     navigationOptions: {
