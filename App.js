@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { Font } from 'expo';
+
+import './src/config/ReactotronConfig';
 import store from './src/redux/store';
 import { Router } from './src/router';
 import { Landing } from './src/screens';
+
+console.disableYellowBox = true;
 
 class App extends Component {
   state = {
