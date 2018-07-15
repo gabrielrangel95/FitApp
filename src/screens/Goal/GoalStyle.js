@@ -8,12 +8,6 @@ const MainContainer = styled.ImageBackground`
   padding-top: 48;
 `;
 
-const Logo = styled.Image`
-  width: 22px;
-  height: 44px;
-  margin-bottom: 10;
-`;
-
 const ContentContainer = styled.View`
   display: flex;
   width: 100%;
@@ -72,7 +66,6 @@ const IconContainer = styled.View`
 
 export {
   MainContainer,
-  Logo,
   ContentContainer,
   SubTitle,
   CellContainer,

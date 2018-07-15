@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { Animated } from 'react-native';
+import { Animated, Easing, Dimensions } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import {
   MainContainer,
-  Logo,
   ContentContainer,
   SubTitle,
   CellContainer,
@@ -11,7 +10,6 @@ import {
   IconContainer,
 } from './GoalStyle';
 import { Title } from '@components';
-import { AnimationFrameScheduler } from '../../../node_modules/rxjs/scheduler/AnimationFrameScheduler';
 
 const background = require('../../assets/img/backgroundGrain.png');
 const logo = require('../../assets/img/icon8Logo.png');
@@ -25,21 +23,27 @@ class Goal extends Component {
   };
 
   componentWillMount() {
-    this.beansImageLeftPosition = new Animated.Value(-100);
-    this.rightImagesPosition = new Animated.Value(-100);
+    this.backgroundImgsXPos = new Animated.Value(-100);
     this.dataContainerOpacity = new Animated.Value(0);
     this.dataContainerYPos = new Animated.Value(100);
+    this.logoImgYPos = new Animated.Value(300);
+    this.logoScaleValue = new Animated.Value(2);
   }
 
   componentDidMount() {
     Animated.parallel([
-      Animated.timing(this.beansImageLeftPosition, {
+      Animated.timing(this.logoImgYPos, {
         toValue: 0,
-        duration: 500,
+        duration: 750,
       }),
-      Animated.timing(this.rightImagesPosition, {
+      Animated.timing(this.logoScaleValue, {
+        toValue: 1,
+        duration: 750,
+      }),
+      Animated.timing(this.backgroundImgsXPos, {
         toValue: 0,
-        duration: 500,
+        duration: 750,
+        easing: Easing.linear,
       }),
       Animated.timing(this.dataContainerOpacity, {
         toValue: 1,
@@ -63,20 +67,20 @@ class Goal extends Component {
       width: '50%',
       position: 'absolute',
       top: '16%',
-      left: this.beansImageLeftPosition,
+      left: this.backgroundImgsXPos,
     };
     const matImagAnimStyle = {
       height: '10%',
       width: '30%',
       position: 'absolute',
-      right: this.rightImagesPosition,
+      right: this.backgroundImgsXPos,
       top: '80%',
     };
     const dumbbellImagAnimStyle = {
       height: '38%',
       width: '29%',
       position: 'absolute',
-      right: this.rightImagesPosition,
+      right: this.backgroundImgsXPos,
       top: '50%',
     };
     const dataContainerAnimStyle = {
@@ -87,12 +91,25 @@ class Goal extends Component {
         translateY: this.dataContainerYPos,
       }],
     };
+    const logoImgAnimStyle = {
+      width: 22,
+      height: 44,
+      marginBottom: 10,
+      transform: [
+        {
+          translateY: this.logoImgYPos,
+        },
+        {
+          scale: this.logoScaleValue,
+        },
+      ],
+    };
     return (
       <MainContainer source={background}>
         <Animated.Image style={beansImgAnimStyle} source={beansBackground} />
         <Animated.Image style={matImagAnimStyle} source={matBackground} />
         <Animated.Image style={dumbbellImagAnimStyle} source={dumbbellBackground} />
-        <Logo source={logo} />
+        <Animated.Image style={logoImgAnimStyle} source={logo} />
         <Animated.View style={dataContainerAnimStyle}>
           <ContentContainer>
             <SubTitle>WELCOME TO 8FIT</SubTitle>
