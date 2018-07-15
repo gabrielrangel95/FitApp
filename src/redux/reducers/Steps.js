@@ -4,6 +4,7 @@ const initialState = {
   data: [],
   loading: false,
   error: null,
+  currentStep: 0,
 };
 
 export default function steps(state = initialState, action) {
@@ -25,6 +26,16 @@ export default function steps(state = initialState, action) {
         ...state,
         loading: false,
         error: action.payload.error,
+      };
+    case Types.STEPS_GO_BACK:
+      return {
+        ...state,
+        currentStep: state.currentStep - 1,
+      };
+    case Types.STEPS_GO_NEXT:
+      return {
+        ...state,
+        currentStep: state.currentStep + 1,
       };
     default:
       return state;
