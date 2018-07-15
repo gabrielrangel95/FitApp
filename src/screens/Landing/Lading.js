@@ -40,10 +40,6 @@ class Landing extends Component {
     await this.props.getStepsRequest(); // will load the steps questions
   }
 
-  componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
-  }
-
   loadFonts = async () => {
     await Font.loadAsync({
       firaSansBold: require('../../assets/fonts/FiraSans-Bold.ttf'),
