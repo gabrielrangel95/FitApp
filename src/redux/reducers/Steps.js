@@ -8,19 +8,19 @@ const initialState = {
 
 export default function steps(state = initialState, action) {
   switch (action.type) {
-    case Types.SETPS_GET_REQUEST:
+    case Types.STEPS_GET_REQUEST:
       return {
         ...state,
         loading: true,
       };
-    case Types.SETPS_GET_SUCCESS:
+    case Types.STEPS_GET_SUCCESS:
       return {
         ...state,
         data: action.payload.data,
         loading: false,
         error: null,
       };
-    case Types.SETPS_GET_FAILURE:
+    case Types.STEPS_GET_FAILURE:
       return {
         ...state,
         loading: false,

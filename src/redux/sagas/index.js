@@ -7,6 +7,6 @@ import { getSteps } from './Steps';
 export default function* rootSaga() {
   return yield all([
     takeLatest(Types.GOAL_GET_REQUEST, getGoals),
-    takeLatest(Types.SETPS_GET_REQUEST, getSteps),
+    takeLatest(Types.STEPS_GET_REQUEST, getSteps),
   ]);
 }
