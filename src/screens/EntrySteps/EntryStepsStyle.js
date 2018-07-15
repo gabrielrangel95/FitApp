@@ -26,16 +26,35 @@ const DataContainer = styled.KeyboardAvoidingView`
   max-height: 54%;
 `;
 
+const EntryContainer = styled.View`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
+const InputContainer = styled.View`
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24;
+`;
+
 const DataInput = styled.TextInput`
+  flex: 1;
   font-family: firaSansBold;
   font-size: 32;
   color: black;
+  text-align: center;
 `;
-
 
 export {
   ArrowLeftContainer,
   Container,
   DataContainer,
+  EntryContainer,
   DataInput,
+  InputContainer,
 };
