@@ -2,7 +2,7 @@ import { Types } from '@redux/types';
 
 export const UserActions = {
   setUserGoal: goal => ({
-    type: Types.USET_SET_GOAL,
+    type: Types.USER_SET_GOAL,
     payload: {
       goal,
     },
