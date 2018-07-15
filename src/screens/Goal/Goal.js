@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { Animated, Easing, FlatList } from 'react-native';
 import { Title, Card } from '@components';
+import PropTypes from 'prop-types';
 
 // redux
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { GoalActions } from '@redux/actions/Goal';
+import { UserActions } from '@redux/actions/User';
 
 import {
   MainContainer,
@@ -22,6 +24,20 @@ const matBackground = require('../../assets/img/imgMat.png');
 class Goal extends Component {
   static navigationOptions = {
     header: null,
+  };
+
+  static propTypes = {
+    setUserGoal: PropTypes.func.isRequired,
+    navigation: PropTypes.shape({
+      navigate: PropTypes.func,
+    }).isRequired,
+    goal: PropTypes.shape({
+      data: PropTypes.arrayOf(PropTypes.shape({
+        title: PropTypes.string,
+        subTitle: PropTypes.string,
+        value: PropTypes.string,
+      })),
+    }).isRequired,
   };
 
   componentWillMount() {
@@ -58,7 +74,8 @@ class Goal extends Component {
     ]).start();
   }
 
-  onGoalPress = () => {
+  onGoalPress = (item) => {
+    this.props.setUserGoal(item);
     this.props.navigation.navigate('EntrySteps');
   }
 
@@ -72,7 +89,6 @@ class Goal extends Component {
   );
 
   render() {
-    const iconSize = 20;
     const { data } = this.props.goal;
     const beansImgAnimStyle = {
       height: '80%',
@@ -143,8 +159,12 @@ const mapStateToProps = state => ({
   goal: state.goal,
 });
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(GoalActions, dispatch);
+const mapDispatchToProps = (dispatch) => {
+  const boundGoalCreators = bindActionCreators(GoalActions, dispatch);
+  const boundUserCreators = bindActionCreators(UserActions, dispatch);
+  const allActionProps = { ...boundGoalCreators, ...boundUserCreators, dispatch };
+  return allActionProps;
+};
 
 const GoalConnect = connect(mapStateToProps, mapDispatchToProps)(Goal);
 export { GoalConnect as Goal };
