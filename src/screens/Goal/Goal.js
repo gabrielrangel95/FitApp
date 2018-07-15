@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
+import { Animated } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import {
   MainContainer,
-  BeansImage,
-  DumbbellImage,
-  MatImage,
   Logo,
   ContentContainer,
   SubTitle,
@@ -25,17 +23,57 @@ class Goal extends Component {
     header: null,
   };
 
+  componentWillMount() {
+    this.beansImageLeftPosition = new Animated.Value(-100);
+    this.rightImagesPosition = new Animated.Value(-100);
+  }
+
+  componentDidMount() {
+    Animated.parallel([
+      Animated.timing(this.beansImageLeftPosition, {
+        toValue: 0,
+        duration: 500,
+      }),
+      Animated.timing(this.rightImagesPosition, {
+        toValue: 0,
+        duration: 500,
+      }),
+    ]).start();
+
+  }
+
   onGoalPress = () => {
     this.props.navigation.navigate('Steps');
   }
 
   render() {
     const iconSize = 20;
+    const beansImgAnimStyle = {
+      height: '80%',
+      width: '50%',
+      position: 'absolute',
+      top: '16%',
+      left: this.beansImageLeftPosition,
+    };
+    const matImagAnimStyle = {
+      height: '10%',
+      width: '30%',
+      position: 'absolute',
+      right: this.rightImagesPosition,
+      top: '80%',
+    };
+    const dumbbellImagAnimStyle = {
+      height: '38%',
+      width: '29%',
+      position: 'absolute',
+      right: this.rightImagesPosition,
+      top: '50%',
+    };
     return (
       <MainContainer source={background}>
-        <BeansImage source={beansBackground} />
-        <MatImage source={matBackground} />
-        <DumbbellImage source={dumbbellBackground} />
+        <Animated.Image style={beansImgAnimStyle} source={beansBackground} />
+        <Animated.Image style={matImagAnimStyle} source={matBackground} />
+        <Animated.Image style={dumbbellImagAnimStyle} source={dumbbellBackground} />
         <Logo source={logo} />
         <ContentContainer>
           <SubTitle>WELCOME TO 8FIT</SubTitle>
@@ -56,7 +94,7 @@ class Goal extends Component {
               <Feather name="chevron-right" size={iconSize} color="grey" />
             </IconContainer>
           </CellContainer>
-          
+
           <CellContainer>
             <Title>Gain muscle</Title>
             <CellSubTitle>Build mass & strength</CellSubTitle>

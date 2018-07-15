@@ -8,30 +8,6 @@ const MainContainer = styled.ImageBackground`
   padding-top: 48;
 `;
 
-const BeansImage = styled.Image`
-  height: 80%;
-  width: 50%;
-  position: absolute;
-  top: 16%;
-  left: 0;
-`;
-
-const DumbbellImage = styled.Image`
-  height: 38%;
-  width: 29%;
-  position: absolute;
-  right: 0;
-  top: 50%;
-`;
-
-const MatImage = styled.Image`
-  height: 10%;
-  width: 30%;
-  position: absolute;
-  right: 0;
-  top: 80%;
-`;
-
 const Logo = styled.Image`
   width: 22px;
   height: 44px;
@@ -96,9 +72,6 @@ const IconContainer = styled.View`
 
 export {
   MainContainer,
-  BeansImage,
-  DumbbellImage,
-  MatImage,
   Logo,
   ContentContainer,
   SubTitle,
