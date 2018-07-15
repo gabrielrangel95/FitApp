@@ -6,10 +6,9 @@ import {
   Container,
   DataContainer,
   DataInput,
-} from './StepsStyle';
+} from './EntryStepsStyle';
 
-
-class Steps extends Component {
+class EntrySteps extends Component {
   static navigationOptions = ({ navigation }) => ({
     headerLeft: (
       <ArrowLeftContainer
@@ -22,7 +21,7 @@ class Steps extends Component {
   })
 
   state = {
-    age: 22,
+    age: '',
   }
 
   render() {
@@ -38,12 +37,11 @@ class Steps extends Component {
             maxLength={3}
             onChangeText={age => this.setState({ age })}
           />
-          <Button text="Continue" />
+          <Button text="Continue" blocked={this.state.age.lenght < 1} />
         </DataContainer>
       </Container>
     );
   }
 }
 
-
-export { Steps };
+export { EntrySteps };
