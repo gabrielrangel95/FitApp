@@ -42,16 +42,16 @@ class Goal extends Component {
       }),
       Animated.timing(this.backgroundImgsXPos, {
         toValue: 0,
-        duration: 750,
+        duration: 900,
         easing: Easing.linear,
       }),
       Animated.timing(this.dataContainerOpacity, {
         toValue: 1,
-        duration: 1000,
+        duration: 1200,
       }),
       Animated.timing(this.dataContainerYPos, {
         toValue: 0,
-        duration: 1000,
+        duration: 1200,
       }),
     ]).start();
   }
