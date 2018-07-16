@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Feather } from '@expo/vector-icons';
-import { Stepper, Title, Button, Segment } from '@components';
+import { Stepper, Title, Button, Segment, BackButton } from '@components';
 import PropTypes from 'prop-types';
 // redux
 import { connect } from 'react-redux';
@@ -9,7 +8,6 @@ import { StepsActions } from '@redux/actions/Steps';
 import { UserActions } from '@redux/actions/User';
 
 import {
-  ArrowLeftContainer,
   Container,
   DataContainer,
   EntryContainer,
@@ -19,14 +17,7 @@ import {
 
 class EntrySteps extends Component {
   static navigationOptions = ({ navigation }) => ({
-    headerLeft: (
-      <ArrowLeftContainer
-        onPress={() => navigation.navigate('Goal')}
-        underlayColor="#444444"
-      >
-        <Feather name="arrow-left" size={20} />
-      </ArrowLeftContainer >
-    ),
+    headerLeft: <BackButton navigation={navigation} />,
   })
 
   static propTypes = {
@@ -37,7 +28,7 @@ class EntrySteps extends Component {
       })),
       currentStep: PropTypes.number,
     }).isRequired,
-    goToNext: PropTypes.func.isRequired,
+    goToNextStep: PropTypes.func.isRequired,
   }
 
   state = {
@@ -56,7 +47,7 @@ class EntrySteps extends Component {
     if (currentStep === (dataSize - 1)) {
       // navigate to result
     } else {
-      this.props.goToNext();
+      this.props.goToNextStep();
     }
   }
 
@@ -66,7 +57,6 @@ class EntrySteps extends Component {
 
   render() {
     const { data, currentStep } = this.props.steps;
-    console.log(data.length, currentStep);
     return (
       <Container>
         <Stepper steps={data.length} currentStep={(currentStep + 1)} />
