@@ -16,10 +16,10 @@ export const StepsActions = {
       error,
     },
   }),
-  goToNext: () => ({
+  goToNextStep: () => ({
     type: Types.STEPS_GO_NEXT,
   }),
-  goBack: () => ({
+  goToBackStep: () => ({
     type: Types.STEPS_GO_BACK,
   }),
 };
