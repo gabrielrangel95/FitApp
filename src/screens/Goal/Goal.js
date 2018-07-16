@@ -10,6 +10,7 @@ import { GoalActions } from '@redux/actions/Goal';
 import { UserActions } from '@redux/actions/User';
 
 import {
+  Styles,
   MainContainer,
   ContentContainer,
   SubTitle,
@@ -91,38 +92,18 @@ class Goal extends Component {
   render() {
     const { data } = this.props.goal;
     const beansImgAnimStyle = {
-      height: '80%',
-      width: '50%',
-      position: 'absolute',
-      top: '16%',
       left: this.backgroundImgsXPos,
     };
-    const matImagAnimStyle = {
-      height: '10%',
-      width: '30%',
-      position: 'absolute',
+    const rightImagesAnimStyle = {
       right: this.backgroundImgsXPos,
-      top: '80%',
-    };
-    const dumbbellImagAnimStyle = {
-      height: '38%',
-      width: '29%',
-      position: 'absolute',
-      right: this.backgroundImgsXPos,
-      top: '50%',
     };
     const dataContainerAnimStyle = {
-      flex: 1,
-      width: '100%',
       opacity: this.dataContainerOpacity,
       transform: [{
         translateY: this.dataContainerYPos,
       }],
     };
     const logoImgAnimStyle = {
-      width: 22,
-      height: 44,
-      marginBottom: 10,
       transform: [
         {
           translateY: this.logoImgYPos,
@@ -134,11 +115,11 @@ class Goal extends Component {
     };
     return (
       <MainContainer source={background}>
-        <Animated.Image style={beansImgAnimStyle} source={beansBackground} />
-        <Animated.Image style={matImagAnimStyle} source={matBackground} />
-        <Animated.Image style={dumbbellImagAnimStyle} source={dumbbellBackground} />
-        <Animated.Image style={logoImgAnimStyle} source={logo} />
-        <Animated.View style={dataContainerAnimStyle}>
+        <Animated.Image style={[Styles.beansImage, beansImgAnimStyle]} source={beansBackground} />
+        <Animated.Image style={[Styles.matImage, rightImagesAnimStyle]} source={matBackground} />
+        <Animated.Image style={[Styles.dumbbellImage, rightImagesAnimStyle]} source={dumbbellBackground} />
+        <Animated.Image style={[Styles.logoImg, logoImgAnimStyle]} source={logo} />
+        <Animated.View style={[Styles.dataContainer, dataContainerAnimStyle]}>
           <ContentContainer>
             <SubTitle>WELCOME TO 8FIT</SubTitle>
             <Title medium>What's your goal?</Title>
