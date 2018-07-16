@@ -3,6 +3,7 @@ import { colors } from '@styles';
 import { Dimensions, StyleSheet } from 'react-native';
 
 const deviceWidth = Dimensions.get('window').width;
+const deviceHeight = Dimensions.get('window').height;
 
 const Styles = StyleSheet.create({
   dataContainer: {
@@ -23,6 +24,16 @@ const Styles = StyleSheet.create({
       height: 6,
     },
   },
+  logoImg: {
+    width: 22,
+    height: 44,
+  },
+  imgParsley: {
+    height: '40%',
+    width: '40%',
+    position: 'absolute',
+    top: '60%',
+  },
 });
 
 const Container = styled.ImageBackground`
@@ -31,6 +42,15 @@ const Container = styled.ImageBackground`
   align-items: center;
   justify-content: flex-start;
   background-color: ${colors.white};
+`;
+
+const ItemsContainer = styled.View`
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  max-height: ${deviceHeight * 0.6};
+  margin-top: 48;
 `;
 
 const DataRowContainer = styled.View`
@@ -49,6 +69,7 @@ const DescriptionText = styled.Text`
 export {
   Styles,
   Container,
+  ItemsContainer,
   DescriptionText,
   DataRowContainer,
 };
