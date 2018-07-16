@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Stepper, Title, Button, Segment, BackButton } from '@components';
 import PropTypes from 'prop-types';
+import { Alert } from 'react-native';
 // redux
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -43,30 +44,35 @@ class EntrySteps extends Component {
   }
 
   continuePressed = async () => {
+    const { continueBlocked } = this.state;
     const { data, currentStep } = this.props.steps;
-    const {
-      age, centimetres, feet, inches,
-    } = this.state;
-    const dataSize = data.length;
-    // handle save entry question answer
-    if (data[currentStep].id === 'age_question') {
-      this.props.setUserAge(age);
-    }
-
-    if (data[currentStep].id === 'height_question') {
-      const height = {
-        centimetres,
-        feet,
-        inches,
-      };
-      this.props.setUserHeight(height);
-    }
-
-    if (currentStep === (dataSize - 1)) {
-      // navigate to result
+    if (continueBlocked) {
+      Alert.alert('You must input the data on the field for continue!');
     } else {
-      await this.setState({ continueBlocked: true });
-      this.props.goToNextStep();
+      const {
+        age, centimetres, feet, inches,
+      } = this.state;
+      const dataSize = data.length;
+      // handle save entry question answer
+      if (data[currentStep].id === 'age_question') {
+        this.props.setUserAge(age);
+      }
+
+      if (data[currentStep].id === 'height_question') {
+        const height = {
+          centimetres,
+          feet,
+          inches,
+        };
+        this.props.setUserHeight(height);
+      }
+
+      if (currentStep === (dataSize - 1)) {
+        // navigate to result
+      } else {
+        await this.setState({ continueBlocked: true });
+        this.props.goToNextStep();
+      }
     }
   }
 
@@ -162,16 +168,16 @@ class EntrySteps extends Component {
                       />
                     </InputContainer>
                   ) : (
-                    <InputContainer>
-                      <DataInput
-                        placeholder="Ex: 130"
-                        keyboardType="number-pad"
-                        value={this.state.centimetres}
-                        maxLength={3}
-                        onChangeText={centimetres => this.handleChangeText(centimetres, 'centimetres')}
-                      />
-                    </InputContainer>
-                  )
+                      <InputContainer>
+                        <DataInput
+                          placeholder="Ex: 130"
+                          keyboardType="number-pad"
+                          value={this.state.centimetres}
+                          maxLength={3}
+                          onChangeText={centimetres => this.handleChangeText(centimetres, 'centimetres')}
+                        />
+                      </InputContainer>
+                    )
                 }
 
                 <Segment
