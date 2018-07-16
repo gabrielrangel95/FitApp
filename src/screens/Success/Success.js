@@ -29,9 +29,17 @@ class Success extends Component {
       dispatch: PropTypes.func,
     }).isRequired,
     user: PropTypes.shape({
-      goal: PropTypes.string,
+      goal: PropTypes.shape({
+        title: PropTypes.string,
+        subTitle: PropTypes.string,
+        value: PropTypes.string,
+      }),
       age: PropTypes.string,
-      height: PropTypes.string,
+      height: PropTypes.shape({
+        centimetres: PropTypes.string,
+        feet: PropTypes.string,
+        inches: PropTypes.string,
+      }),
     }).isRequired,
   };
 
