@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
 import { Dimensions } from 'react-native';
+import { colors } from '@styles';
 
 const deviceWidth = Dimensions.get('window').width;
 
@@ -8,7 +9,7 @@ const Container = styled.View`
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  background-color: white;
+  background-color: ${colors.white};
 `;
 
 const DataContainer = styled.KeyboardAvoidingView`
@@ -33,7 +34,7 @@ const DataInput = styled.TextInput`
   width: ${props => (props.full ? (deviceWidth * 0.8) : '100%')};
   font-family: firaSansBold;
   font-size: 32;
-  color: black;
+  color: ${colors.black};
   text-align: center;
   margin-left: 12;
   margin-right: 12;
@@ -45,7 +46,7 @@ const InputTypeText = styled.Text`
   left: ${props => (props.smallItem ? '-150%' : '-320%')};
   font-family: fireSansRegular;
   font-size: 16;
-  color: grey;
+  color: ${colors.dark};
 `;
 
 const InputContainer = styled.View`
@@ -59,7 +60,7 @@ const InputContainer = styled.View`
 const ErrorText = styled.Text`
   font-family: fireSansRegular;
   font-size: 16;
-  color: red;
+  color: ${colors.danger};
   margin-bottom: 12;
 `;
 

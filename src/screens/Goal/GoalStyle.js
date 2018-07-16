@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import { colors } from '@styles';
 
 const MainContainer = styled.ImageBackground`
   flex: 1;
@@ -6,6 +7,7 @@ const MainContainer = styled.ImageBackground`
   align-items: center;
   justify-content: flex-start;
   padding-top: 48;
+  background-color: ${colors.white};
 `;
 
 const ContentContainer = styled.View`
@@ -20,7 +22,7 @@ const ContentContainer = styled.View`
 const SubTitle = styled.Text`
   font-family: firaSansMedium;
   font-size: 12;
-  color: black;
+  color: ${colors.black};
   margin-bottom: 20;
 `;
 
