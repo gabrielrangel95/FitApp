@@ -53,7 +53,14 @@ const InputContainer = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  margin-bottom: 24;
+  margin-bottom: 12;
+`;
+
+const ErrorText = styled.Text`
+  font-family: fireSansRegular;
+  font-size: 16;
+  color: red;
+  margin-bottom: 12;
 `;
 
 export {
@@ -63,4 +70,5 @@ export {
   DataInput,
   InputContainer,
   InputTypeText,
+  ErrorText,
 };

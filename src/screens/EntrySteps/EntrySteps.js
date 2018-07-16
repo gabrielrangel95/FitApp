@@ -15,6 +15,7 @@ import {
   DataInput,
   InputContainer,
   InputTypeText,
+  ErrorText,
 } from './EntryStepsStyle';
 
 class EntrySteps extends Component {
@@ -43,6 +44,7 @@ class EntrySteps extends Component {
     feet: '',
     inches: '',
     centimetres: '',
+    errorMessage: null,
     continueBlocked: true,
     segmentItemSelected: 1, // 1 is FT 2 is CM
   }
@@ -86,23 +88,24 @@ class EntrySteps extends Component {
 
   changeSegmentOption = async (segmentItemSelected) => {
     await this.setState({ segmentItemSelected }); // change the current segment (FT or CM)
-    this.validateContinueBlock(); // will validate again
+    this.validateFields(); // will validate again
   }
 
-  handleChangeText = (text, type) => { // put the text on the state and will call the validation
+  handleChangeText = async (text, type) => {
+    // put the text on the state and will call the validation
     if (type === 'centimetres') {
-      this.setState({ centimetres: text });
+      await this.setState({ centimetres: text });
     } else if (type === 'feet') {
-      this.setState({ feet: text });
+      await this.setState({ feet: text });
     } else if (type === 'inches') {
-      this.setState({ inches: text });
+      await this.setState({ inches: text });
     } else if (type === 'age') {
-      this.setState({ age: text });
+      await this.setState({ age: text });
     }
-    this.validateContinueBlock();
+    this.validateFields();
   }
 
-  validateContinueBlock = () => {
+  validateFields = () => {
     const {
       age, inches, feet, centimetres,
     } = this.state;
@@ -114,18 +117,34 @@ class EntrySteps extends Component {
         this.setState({ continueBlocked: true });
       } else {
         this.setState({ continueBlocked: false });
+        if (age < 13 || age > 120) {
+          this.setState({ errorMessage: 'You must have more then 13 years or less than 120' });
+        } else {
+          this.setState({ errorMessage: null });
+        }
       }
     } else if (dataId === 'height_question') { // validate if is on the hight question
       if (this.state.segmentItemSelected === 1) {
         if (inches.length === 0 || feet.length === 0) { // inches and feet
           this.setState({ continueBlocked: true });
         } else {
+          const convertedInCm = ((feet * 30.48) + (inches * 2.54));
+          if (convertedInCm < 125 || convertedInCm > 301) {
+            this.setState({ errorMessage: 'You must input a valid value' });
+          } else {
+            this.setState({ errorMessage: null });
+          }
           this.setState({ continueBlocked: false });
         }
       } else if (this.state.segmentItemSelected === 2) { // centimetres
         if (centimetres.length === 0) {
           this.setState({ continueBlocked: true });
         } else {
+          if (centimetres < 125 || centimetres > 301) {
+            this.setState({ errorMessage: 'You must have more then 125cm or less than 301cm' });
+          } else {
+            this.setState({ errorMessage: null });
+          }
           this.setState({ continueBlocked: false });
         }
       }
@@ -154,6 +173,9 @@ class EntrySteps extends Component {
                   underlineColorAndroid="transparent"
                 />
                 <InputTypeText>Years</InputTypeText>
+                {
+                  this.state.errorMessage && <ErrorText>{this.state.errorMessage}</ErrorText>
+                }
               </EntryContainer>
             )
           }
@@ -205,7 +227,9 @@ class EntrySteps extends Component {
                     </InputContainer>
                     )
                 }
-
+                {
+                  this.state.errorMessage && <ErrorText>{this.state.errorMessage}</ErrorText>
+                }
                 <Segment
                   selectedOption={this.state.segmentItemSelected}
                   firstOption="FT"
@@ -216,9 +240,9 @@ class EntrySteps extends Component {
             )
           }
           <Button
-            blocked={this.state.continueBlocked}
+            blocked={this.state.continueBlocked || this.state.errorMessage}
             text="Continue"
-            onPress={this.continuePressed}
+            onPress={(this.state.errorMessage ? null : this.continuePressed)}
           />
         </DataContainer>
       </Container>
