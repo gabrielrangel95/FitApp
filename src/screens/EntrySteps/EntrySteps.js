@@ -14,6 +14,7 @@ import {
   EntryContainer,
   DataInput,
   InputContainer,
+  InputTypeText,
 } from './EntryStepsStyle';
 
 class EntrySteps extends Component {
@@ -55,7 +56,7 @@ class EntrySteps extends Component {
       const dataSize = data.length;
       // handle save entry question answer
       if (data[currentStep].id === 'age_question') {
-        this.props.setUserAge(age);
+        await this.props.setUserAge(age);
       }
 
       if (data[currentStep].id === 'height_question') {
@@ -64,7 +65,7 @@ class EntrySteps extends Component {
           feet,
           inches,
         };
-        this.props.setUserHeight(height);
+        await this.props.setUserHeight(height);
       }
 
       if (currentStep === (dataSize - 1)) {
@@ -129,17 +130,21 @@ class EntrySteps extends Component {
     return (
       <Container>
         <Stepper steps={data.length} currentStep={(currentStep + 1)} />
-        <DataContainer>
+        <DataContainer behavior="padding">
           <Title medium>{data[currentStep].title}</Title>
           {
             data[currentStep].id === 'age_question' && (
               <EntryContainer>
                 <DataInput
-                  placeholder="Ex: 33"
+                  full
                   keyboardType="number-pad"
                   value={this.state.age}
                   maxLength={3}
                   onChangeText={age => this.handleChangeText(age, 'age')}
+                  borderBottomColor="grey"
+                  borderBottomWidth={1}
+                  borderStyle="solid"
+                  underlineColorAndroid="transparent"
                 />
               </EntryContainer>
             )
@@ -152,31 +157,44 @@ class EntrySteps extends Component {
                     <InputContainer>
                       <DataInput
                         flex1
-                        placeholder="Ex: 130"
                         keyboardType="number-pad"
                         value={this.state.feet}
-                        maxLength={3}
+                        maxLength={2}
                         onChangeText={feet => this.handleChangeText(feet, 'feet')}
+                        borderBottomColor="grey"
+                        borderBottomWidth={1}
+                        borderStyle="solid"
+                        underlineColorAndroid="transparent"
                       />
+                      <InputTypeText smallItem>Ft</InputTypeText>
                       <DataInput
                         flex1
-                        placeholder="Ex: 130"
                         keyboardType="number-pad"
                         value={this.state.inches}
-                        maxLength={3}
+                        maxLength={2}
                         onChangeText={inches => this.handleChangeText(inches, 'inches')}
+                        borderBottomColor="grey"
+                        borderBottomWidth={1}
+                        borderStyle="solid"
+                        underlineColorAndroid="transparent"
                       />
+                      <InputTypeText smallItem>In</InputTypeText>
                     </InputContainer>
                   ) : (
-                      <InputContainer>
-                        <DataInput
-                          placeholder="Ex: 130"
-                          keyboardType="number-pad"
-                          value={this.state.centimetres}
-                          maxLength={3}
-                          onChangeText={centimetres => this.handleChangeText(centimetres, 'centimetres')}
-                        />
-                      </InputContainer>
+                    <InputContainer>
+                      <DataInput
+                        full
+                        keyboardType="number-pad"
+                        value={this.state.centimetres}
+                        maxLength={3}
+                        onChangeText={centimetres => this.handleChangeText(centimetres, 'centimetres')}
+                        borderBottomColor="grey"
+                        borderBottomWidth={1}
+                        borderStyle="solid"
+                        underlineColorAndroid="transparent"
+                      />
+                      <InputTypeText>Cm</InputTypeText>
+                    </InputContainer>
                     )
                 }
 

@@ -1,4 +1,7 @@
 import styled from 'styled-components/native';
+import { Dimensions } from 'react-native';
+
+const deviceWidth = Dimensions.get('window').width;
 
 const Container = styled.View`
   flex: 1;
@@ -15,7 +18,7 @@ const DataContainer = styled.KeyboardAvoidingView`
   justify-content: space-between;
   margin-top: 24;
   margin-bottom: 20;
-  max-height: 54%;
+  max-height: 50%;
 `;
 
 const EntryContainer = styled.View`
@@ -27,10 +30,22 @@ const EntryContainer = styled.View`
 
 const DataInput = styled.TextInput`
   ${props => (props.flex1 ? 'flex: 1' : 'display: flex')}
+  width: ${props => (props.full ? (deviceWidth * 0.8) : '100%')};
   font-family: firaSansBold;
   font-size: 32;
   color: black;
   text-align: center;
+  margin-left: 12;
+  margin-right: 12;
+`;
+
+const InputTypeText = styled.Text`
+  position: relative;
+  top: 2%;
+  left: ${props => (props.smallItem ? '-150%' : '-320%')};
+  font-family: fireSansRegular;
+  font-size: 16;
+  color: grey;
 `;
 
 const InputContainer = styled.View`
@@ -47,4 +62,5 @@ export {
   EntryContainer,
   DataInput,
   InputContainer,
+  InputTypeText,
 };
