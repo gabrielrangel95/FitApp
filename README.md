@@ -1,5 +1,7 @@
 # FitApp
-![](https://github.com/gabrielrangel95/FitApp/blob/master/src/assets/gif/FitAppEdited.gif)
+<p align="center"> 
+<img src="https://github.com/gabrielrangel95/FitApp/blob/master/src/assets/gif/FitAppEdited.gif" height="400" />
+</p>
 ## About
 This is a project using React Native and Expo, inspired on 8fit App.
 <br/>
