@@ -159,7 +159,7 @@ class EntrySteps extends Component {
         <DataContainer behavior="padding">
           <Title medium>{data[currentStep].title}</Title>
           {
-            data[currentStep].id === 'age_question' && (
+            data[currentStep].id === 'age_question' && ( // display only the age entry
               <EntryContainer>
                 <DataInput
                   full
@@ -184,6 +184,7 @@ class EntrySteps extends Component {
               <EntryContainer>
                 {
                   this.state.segmentItemSelected === 1 ? (
+                    // if FT is selected display feet and inches inputs
                     <InputContainer>
                       <DataInput
                         flex1
@@ -210,7 +211,7 @@ class EntrySteps extends Component {
                       />
                       <InputTypeText smallItem>In</InputTypeText>
                     </InputContainer>
-                  ) : (
+                  ) : ( // if is not, Cm input will be displayed
                     <InputContainer>
                       <DataInput
                         full
@@ -227,7 +228,7 @@ class EntrySteps extends Component {
                     </InputContainer>
                     )
                 }
-                {
+                { // display an error message if haves one
                   this.state.errorMessage && <ErrorText>{this.state.errorMessage}</ErrorText>
                 }
                 <Segment
@@ -239,7 +240,7 @@ class EntrySteps extends Component {
               </EntryContainer>
             )
           }
-          <Button
+          <Button // will call on press if errorMessage is null
             blocked={this.state.continueBlocked || this.state.errorMessage}
             text="Continue"
             onPress={(this.state.errorMessage ? null : this.continuePressed)}
