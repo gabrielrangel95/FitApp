@@ -33,6 +33,9 @@ class EntrySteps extends Component {
     goToNextStep: PropTypes.func.isRequired,
     setUserAge: PropTypes.func.isRequired,
     setUserHeight: PropTypes.func.isRequired,
+    navigation: PropTypes.shape({
+      navigate: PropTypes.func,
+    }).isRequired,
   };
 
   state = {
@@ -47,29 +50,33 @@ class EntrySteps extends Component {
   continuePressed = async () => {
     const { continueBlocked } = this.state;
     const { data, currentStep } = this.props.steps;
-    if (continueBlocked) {
+    if (continueBlocked) { // if is blocked will display an alert
       Alert.alert('You must input the data on the field for continue!');
     } else {
       const {
-        age, centimetres, feet, inches,
+        age, feet, inches,
       } = this.state;
+      let { centimetres } = this.state;
       const dataSize = data.length;
       // handle save entry question answer
-      if (data[currentStep].id === 'age_question') {
-        await this.props.setUserAge(age);
+      if (data[currentStep].id === 'age_question') { // verify witch step is the current
+        await this.props.setUserAge(age); // save the data
       }
 
       if (data[currentStep].id === 'height_question') {
+        if (centimetres.length === 0) {
+          centimetres = ((feet * 30.48) + (inches * 2.54));
+        }
         const height = {
           centimetres,
           feet,
           inches,
         };
-        await this.props.setUserHeight(height);
+        await this.props.setUserHeight(height); // save the height
       }
 
-      if (currentStep === (dataSize - 1)) {
-        // navigate to result
+      if (currentStep === (dataSize - 1)) { // if is the last will navigate to the Success screen
+        this.props.navigation.navigate('Success');
       } else {
         await this.setState({ continueBlocked: true });
         this.props.goToNextStep();
@@ -78,11 +85,11 @@ class EntrySteps extends Component {
   }
 
   changeSegmentOption = async (segmentItemSelected) => {
-    await this.setState({ segmentItemSelected });
-    this.validateContinueBlock();
+    await this.setState({ segmentItemSelected }); // change the current segment (FT or CM)
+    this.validateContinueBlock(); // will validate again
   }
 
-  handleChangeText = (text, type) => {
+  handleChangeText = (text, type) => { // put the text on the state and will call the validation
     if (type === 'centimetres') {
       this.setState({ centimetres: text });
     } else if (type === 'feet') {
@@ -110,12 +117,12 @@ class EntrySteps extends Component {
       }
     } else if (dataId === 'height_question') { // validate if is on the hight question
       if (this.state.segmentItemSelected === 1) {
-        if (inches.length === 0 || feet.length === 0) {
+        if (inches.length === 0 || feet.length === 0) { // inches and feet
           this.setState({ continueBlocked: true });
         } else {
           this.setState({ continueBlocked: false });
         }
-      } else if (this.state.segmentItemSelected === 2) {
+      } else if (this.state.segmentItemSelected === 2) { // centimetres
         if (centimetres.length === 0) {
           this.setState({ continueBlocked: true });
         } else {
@@ -146,6 +153,7 @@ class EntrySteps extends Component {
                   borderStyle="solid"
                   underlineColorAndroid="transparent"
                 />
+                <InputTypeText>Years</InputTypeText>
               </EntryContainer>
             )
           }
