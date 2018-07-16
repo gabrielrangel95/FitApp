@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
 import { Dimensions } from 'react-native';
+import { colors } from '@styles';
 
 const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
@@ -18,18 +19,17 @@ const CellContainer = styled.TouchableOpacity`
   padding-bottom: 20px;
   padding-right: 10px;
   border-radius: 8;
-  shadow-color: rgba(0, 0, 0, 0.3);
+  shadow-color: ${colors.regularTransparent};
   shadow-opacity: 0.75;
   shadow-radius: 2;
   shadow-offset: 6px 6px;
-  
 `;
 
 
 const CellSubTitle = styled.Text`
   font-family: fireSansRegular;
   font-size: 16;
-  color: grey;
+  color: ${colors.dark};
 `;
 
 const IconContainer = styled.View`

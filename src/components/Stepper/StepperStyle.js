@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import { colors } from '@styles';
 
 const StepperContainer = styled.View`
   display: flex;
@@ -13,7 +14,7 @@ const StepperItem = styled.View`
   justify-content: center;
   width: 100%;
   height: 100%;
-  background-color: ${props => (props.activy ? '#1ed677' : 'white')};
+  background-color: ${props => (props.activy ? colors.primary : colors.white)};
 `;
 
 export { StepperContainer, StepperItem };

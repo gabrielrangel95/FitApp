@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import { colors } from '@styles';
 
 const ButtonContainer = styled.TouchableOpacity`
   display: flex;
@@ -6,9 +7,9 @@ const ButtonContainer = styled.TouchableOpacity`
   justify-content: center;
   height: 42;
   width: 120;
-  background-color: ${props => (props.blocked ? 'grey' : 'black')}
+  background-color: ${props => (props.blocked ? 'grey' : 'black')};
   border-radius: 28;
-  shadow-color: 'rgba(0, 0, 0, 0.3)',
+  shadow-color: ${colors.regularTransparent};
   shadow-opacity: 0.75;
   shadow-radius: 5px;
   shadow-offset: 2px 10px;
@@ -17,7 +18,7 @@ const ButtonContainer = styled.TouchableOpacity`
 const ButtonText = styled.Text`
   font-family: firaSansMedium;
   font-size: 16;
-  color: white;
+  color: ${colors.white};
 `;
 
 export { ButtonContainer, ButtonText };
