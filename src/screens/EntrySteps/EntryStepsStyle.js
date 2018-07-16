@@ -19,27 +19,26 @@ const DataContainer = styled.KeyboardAvoidingView`
 `;
 
 const EntryContainer = styled.View`
-  display: flex;
+  flex: 1;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 `;
 
-const InputContainer = styled.View`
-  display: flex;
-  width: 100%;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 24;
-`;
-
 const DataInput = styled.TextInput`
-  flex: 1;
+  ${props => (props.flex1 ? 'flex: 1' : 'display: flex')}
   font-family: firaSansBold;
   font-size: 32;
   color: black;
   text-align: center;
+`;
+
+const InputContainer = styled.View`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24;
 `;
 
 export {

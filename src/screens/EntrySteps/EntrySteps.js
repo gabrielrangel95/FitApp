@@ -29,30 +29,93 @@ class EntrySteps extends Component {
       currentStep: PropTypes.number,
     }).isRequired,
     goToNextStep: PropTypes.func.isRequired,
-  }
+    setUserAge: PropTypes.func.isRequired,
+    setUserHeight: PropTypes.func.isRequired,
+  };
 
   state = {
-    age: null,
-    feet: null,
-    inches: null,
-    cm: null,
+    age: '',
+    feet: '',
+    inches: '',
+    centimetres: '',
+    continueBlocked: true,
     segmentItemSelected: 1, // 1 is FT 2 is CM
   }
 
-  continuePressed = () => {
+  continuePressed = async () => {
     const { data, currentStep } = this.props.steps;
+    const {
+      age, centimetres, feet, inches,
+    } = this.state;
     const dataSize = data.length;
     // handle save entry question answer
+    if (data[currentStep].id === 'age_question') {
+      this.props.setUserAge(age);
+    }
+
+    if (data[currentStep].id === 'height_question') {
+      const height = {
+        centimetres,
+        feet,
+        inches,
+      };
+      this.props.setUserHeight(height);
+    }
 
     if (currentStep === (dataSize - 1)) {
       // navigate to result
     } else {
+      await this.setState({ continueBlocked: true });
       this.props.goToNextStep();
     }
   }
 
-  changeSegmentOption = (segmentItemSelected) => {
-    this.setState({ segmentItemSelected });
+  changeSegmentOption = async (segmentItemSelected) => {
+    await this.setState({ segmentItemSelected });
+    this.validateContinueBlock();
+  }
+
+  handleChangeText = (text, type) => {
+    if (type === 'centimetres') {
+      this.setState({ centimetres: text });
+    } else if (type === 'feet') {
+      this.setState({ feet: text });
+    } else if (type === 'inches') {
+      this.setState({ inches: text });
+    } else if (type === 'age') {
+      this.setState({ age: text });
+    }
+    this.validateContinueBlock();
+  }
+
+  validateContinueBlock = () => {
+    const {
+      age, inches, feet, centimetres,
+    } = this.state;
+    const { data, currentStep } = this.props.steps;
+    const dataId = data[currentStep].id;
+
+    if (dataId === 'age_question') { // validate if is on the age question
+      if (age.length === 0) {
+        this.setState({ continueBlocked: true });
+      } else {
+        this.setState({ continueBlocked: false });
+      }
+    } else if (dataId === 'height_question') { // validate if is on the hight question
+      if (this.state.segmentItemSelected === 1) {
+        if (inches.length === 0 || feet.length === 0) {
+          this.setState({ continueBlocked: true });
+        } else {
+          this.setState({ continueBlocked: false });
+        }
+      } else if (this.state.segmentItemSelected === 2) {
+        if (centimetres.length === 0) {
+          this.setState({ continueBlocked: true });
+        } else {
+          this.setState({ continueBlocked: false });
+        }
+      }
+    }
   }
 
   render() {
@@ -70,7 +133,7 @@ class EntrySteps extends Component {
                   keyboardType="number-pad"
                   value={this.state.age}
                   maxLength={3}
-                  onChangeText={age => this.setState({ age })}
+                  onChangeText={age => this.handleChangeText(age, 'age')}
                 />
               </EntryContainer>
             )
@@ -78,23 +141,24 @@ class EntrySteps extends Component {
           {
             data[currentStep].id === 'height_question' && (
               <EntryContainer>
-
                 {
                   this.state.segmentItemSelected === 1 ? (
                     <InputContainer>
                       <DataInput
+                        flex1
                         placeholder="Ex: 130"
                         keyboardType="number-pad"
                         value={this.state.feet}
                         maxLength={3}
-                        onChangeText={feet => this.setState({ feet })}
+                        onChangeText={feet => this.handleChangeText(feet, 'feet')}
                       />
                       <DataInput
+                        flex1
                         placeholder="Ex: 130"
                         keyboardType="number-pad"
                         value={this.state.inches}
                         maxLength={3}
-                        onChangeText={inches => this.setState({ inches })}
+                        onChangeText={inches => this.handleChangeText(inches, 'inches')}
                       />
                     </InputContainer>
                   ) : (
@@ -102,9 +166,9 @@ class EntrySteps extends Component {
                       <DataInput
                         placeholder="Ex: 130"
                         keyboardType="number-pad"
-                        value={this.state.cm}
+                        value={this.state.centimetres}
                         maxLength={3}
-                        onChangeText={cm => this.setState({ cm })}
+                        onChangeText={centimetres => this.handleChangeText(centimetres, 'centimetres')}
                       />
                     </InputContainer>
                   )
@@ -119,7 +183,11 @@ class EntrySteps extends Component {
               </EntryContainer>
             )
           }
-          <Button text="Continue" onPress={this.continuePressed} />
+          <Button
+            blocked={this.state.continueBlocked}
+            text="Continue"
+            onPress={this.continuePressed}
+          />
         </DataContainer>
       </Container>
     );
